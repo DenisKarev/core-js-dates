@@ -283,7 +283,7 @@ function getWorkSchedule(period, countWorkDays, countOffDays) {
     if (countWorkDays > 1) {
       for (let i = 0; i < countWorkDays; i += 1) {
         if (current <= endDate) {
-          res.push(current.toLocaleDateString().split('.').join('-'));
+          res.push(current.toLocaleDateString(undefined).split('.').join('-'));
         }
         current.setDate(current.getDate() + 1);
       }
