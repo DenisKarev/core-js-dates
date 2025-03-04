@@ -289,7 +289,7 @@ function getWorkSchedule(period, countWorkDays, countOffDays) {
       }
       current.setDate(current.getDate() + countOffDays);
     } else {
-      res.push(current.toLocaleDateString().split('.').join('-'));
+      res.push(current.toLocaleDateString(undefined).split('.').join('-'));
       current.setDate(current.getDate() + countOffDays + countWorkDays);
     }
   }
