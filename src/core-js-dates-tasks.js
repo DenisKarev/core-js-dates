@@ -284,10 +284,7 @@ function getWorkSchedule(period, countWorkDays, countOffDays) {
     for (let i = 0; i < countWorkDays; i += 1) {
       if (current <= endDate) {
         res.push(
-          current
-            .toLocaleDateString(undefined, { timeZone: 'UTC' })
-            .split('.')
-            .join('-')
+          current.toISOString().substring(0, 10).split('-').reverse().join('-')
         );
       }
       current.setUTCDate(current.getUTCDate() + 1);
