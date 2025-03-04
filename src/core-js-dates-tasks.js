@@ -274,24 +274,27 @@ function getQuarter(date) {
 function getWorkSchedule(period, countWorkDays, countOffDays) {
   const start = [...period.start.split('-')].map(Number);
   const end = [...period.end.split('-')].map(Number);
-  const startDate = new Date(start[2], start[1] - 1, start[0]);
-  const endDate = new Date(end[2], end[1] - 1, end[0]);
+  const startDate = new Date(Date.UTC(start[2], start[1] - 1, start[0]));
+  const endDate = new Date(Date.UTC(end[2], end[1] - 1, end[0]));
   if (startDate > endDate) return [];
 
   const current = new Date(startDate);
-  const schedule = [];
+  const res = [];
   while (current <= endDate) {
     for (let i = 0; i < countWorkDays; i += 1) {
       if (current <= endDate) {
-        schedule.push(
-          current.toLocaleDateString(undefined).split('.').join('-')
+        res.push(
+          current
+            .toLocaleDateString(undefined, { timeZone: 'UTC' })
+            .split('.')
+            .join('-')
         );
       }
-      current.setDate(current.getDate() + 1);
+      current.setUTCDate(current.getUTCDate() + 1);
     }
-    current.setDate(current.getDate() + countOffDays);
+    current.setUTCDate(current.getUTCDate() + countOffDays);
   }
-  return schedule;
+  return res;
 }
 
 /**
