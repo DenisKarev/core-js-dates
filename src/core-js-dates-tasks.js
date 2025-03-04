@@ -277,23 +277,21 @@ function getWorkSchedule(period, countWorkDays, countOffDays) {
   const startDate = new Date(start[2], start[1] - 1, start[0]);
   const endDate = new Date(end[2], end[1] - 1, end[0]);
   if (startDate > endDate) return [];
+
   const current = new Date(startDate);
-  const res = [];
+  const schedule = [];
   while (current <= endDate) {
-    if (countWorkDays > 1) {
-      for (let i = 0; i < countWorkDays; i += 1) {
-        if (current <= endDate) {
-          res.push(current.toLocaleDateString(undefined).split('.').join('-'));
-        }
-        current.setDate(current.getDate() + 1);
+    for (let i = 0; i < countWorkDays; i += 1) {
+      if (current <= endDate) {
+        schedule.push(
+          current.toLocaleDateString(undefined).split('.').join('-')
+        );
       }
-      current.setDate(current.getDate() + countOffDays);
-    } else {
-      res.push(current.toLocaleDateString(undefined).split('.').join('-'));
-      current.setDate(current.getDate() + countOffDays + countWorkDays);
+      current.setDate(current.getDate() + 1);
     }
+    current.setDate(current.getDate() + countOffDays);
   }
-  return res;
+  return schedule;
 }
 
 /**
